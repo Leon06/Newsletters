@@ -3,13 +3,13 @@ from django import forms
 from .models import NewsletterUser, Newsletter
 
 #Informacion del modelo NewsletterUser
-class NewsletterUserSignUpForm(forms.modelForm):
+class NewsletterUserSignUpForm(forms.ModelForm):
     class Meta:
         model = NewsletterUser
         fields = ['email']
 
-class NewsletterForm(forms.ModelForm):
+class NewsletterCreationForm(forms.ModelForm):
     class Meta:
         model = Newsletter
-        fields = ['name','subject','body','email']
+        fields = ['name','subject','body','email','status']
 

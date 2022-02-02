@@ -1,6 +1,6 @@
 
 from django.conf import settings
-from django.core.checks import messages
+from django.contrib import messages
 from django.shortcuts import render
 from .forms import NewsletterUserSignUpForm
 from .models import NewsletterUser
@@ -33,4 +33,20 @@ def newsletter_signup(request):
 
     return render(request,"start-here.html",{
         'form':form,
+    })
+
+def newsletter_unsubscribe(request):
+    form = NewsletterUserSignUpForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        if NewsletterUser.objects.filter(email=instance.email).exists():
+            NewsletterUser.objects.filter(email=instance.email).delete()
+            messages.succes(request,'Email ha sido removido')
+
+        else:
+            print('Email not found')
+            messages.Warning(request,'Email no encontrado')
+
+    return render(request,"unsubscribe.html",{
+        "form": form,
     })
