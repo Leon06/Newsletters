@@ -1,6 +1,6 @@
 
 from django.conf import settings
-from django.core.checks import messages
+from django.contrib import messages
 from django.shortcuts import render
 from .forms import NewsletterUserSignUpForm
 from .models import NewsletterUser
